@@ -1,0 +1,97 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f1f2f5;
+}
+
+/* Title */
+.title {
+  text-align: center;
+  margin-bottom: 5%;
+}
+
+/* ToDo List */
+.list-container {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  width: 30%;
+  margin-left: 35%;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+  padding: 1%;
+}
+
+/* ToDo List => Header */
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3%;
+  border-bottom: 1px #ddd solid;
+}
+
+/* ToDo List => Form */
+.list-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 3%;
+  padding-bottom: 2%;
+  border-bottom: #ddd 1px solid;
+}
+
+.list-form input {
+  width: 90%;
+  height: 30px;
+  font-size: 0.8em;
+  padding-left: 2%;
+  outline: none;
+  border: none;
+}
+
+/* ToDo List => Content */
+.task-content {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px #ddd solid;
+  margin-bottom: 2.5%;
+  padding-bottom: 1%;
+}
+
+.task-text {
+  display: flex;
+  width: 60%;
+}
+
+.task-text p {
+  margin-left: 2%;
+}
+
+/* ToDo List => Clear Checked button */
+.btn-container {
+  display: flex;
+  justify-content: center;
+}
+
+.btn {
+  width: 50%;
+  height: 40px;
+  outline: none;
+  border: none;
+  background-color: #f1f2f5;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.btn:hover {
+  transition: 0.5s ease-in-out;
+  background-color: rgb(0, 255, 157);
+  color: white;
+}
