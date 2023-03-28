@@ -26,7 +26,7 @@ const showTasks = () => {
     const taskCard = document.createElement('div');
     taskCard.classList = 'task-content';
     taskCard.innerHTML = `<div class="task-text">
-                            <i class="fa-pen-to-square fa-regular" id="check-box"></i>
+                            <input type="checkbox">
                             <p class="task-text">${task.description}</p>
                           </div>
                           <i class="fa-solid fa-trash-can" id="delete-task"></i>`;
