@@ -74,6 +74,19 @@ body {
   margin-left: 2%;
 }
 
+.task-edit {
+  outline: none;
+  border: none;
+  margin-left: 3%;
+  margin-top: 1%;
+  font-weight: 600;  
+  font-size: 1em;
+}
+
+.completed {
+  text-decoration: line-through;
+}
+
 /* ToDo List => Clear Checked button */
 .btn-container {
   display: flex;

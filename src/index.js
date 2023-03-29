@@ -1,37 +1,40 @@
 /* Imports */
 import './styles.css';
+import {
+  deployList, addToList, editList, removeList,
+} from './modules/functionality.js';
 
-const activitiesToDo = [
-  {
-    description: 'First To Do',
-    completed: false,
-    id: 1,
-  },
-  {
-    description: 'Second To Do',
-    completed: false,
-    id: 2,
-  },
-  {
-    description: 'Third To Do',
-    completed: false,
-    id: 3,
-  },
-];
+const taskList = document.getElementById('task-list');
+const newTask = document.getElementById('task-input');
+const submit = document.getElementById('submit-icon');
 
-const taskContainer = document.getElementById('task-list');
+/* Add To List */
+newTask.addEventListener('keypress', (e) => {
+  addToList(e);
+});
 
-const showTasks = () => {
-  activitiesToDo.forEach((task) => {
-    const taskCard = document.createElement('div');
-    taskCard.classList = 'task-content';
-    taskCard.innerHTML = `<div class="task-text">
-                            <input type="checkbox">
-                            <p class="task-text">${task.description}</p>
-                          </div>
-                          <i class="fa-solid fa-trash-can" id="delete-task"></i>`;
-    taskContainer.appendChild(taskCard);
-  });
-};
+/* Add to List (clicked) */
+submit.addEventListener('click', () => {
+  addToList('clicked');
+});
 
-showTasks();
+/* Delete Task */
+taskList.addEventListener('click', (event) => {
+  const clickedItem = event.target.classList[event.target.classList.length - 1];
+  const li = event.target.parentElement;
+  if (clickedItem === 'delete-task') {
+    removeList(li.id);
+    event.target.parentElement.remove();
+  }
+});
+
+/* Edit Task */
+taskList.addEventListener('keypress', (event) => {
+  const pressedItem = event.target.classList[event.target.classList.length - 1];
+  const li = event.target.parentElement;
+  if (pressedItem === 'task-edit') {
+    editList({ index: li.id, event });
+  }
+});
+
+document.addEventListener('DOMContentLoaded', deployList());
