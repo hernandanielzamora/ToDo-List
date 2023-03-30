@@ -5,44 +5,60 @@
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _styles_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var _modules_functionality_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(11);
+/* harmony import */ var _modules_checkFunctions_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12);
 /* Imports */
 
 
-const activitiesToDo = [
-  {
-    description: 'First To Do',
-    completed: false,
-    id: 1,
-  },
-  {
-    description: 'Second To Do',
-    completed: false,
-    id: 2,
-  },
-  {
-    description: 'Third To Do',
-    completed: false,
-    id: 3,
-  },
-];
 
-const taskContainer = document.getElementById('task-list');
 
-const showTasks = () => {
-  activitiesToDo.forEach((task) => {
-    const taskCard = document.createElement('div');
-    taskCard.classList = 'task-content';
-    taskCard.innerHTML = `<div class="task-text">
-                            <i class="fa-pen-to-square fa-regular" id="check-box"></i>
-                            <p class="task-text">${task.description}</p>
-                          </div>
-                          <i class="fa-solid fa-trash-can" id="delete-task"></i>`;
-    taskContainer.appendChild(taskCard);
-  });
-};
+const taskList = document.getElementById('task-list');
+const newTask = document.getElementById('task-input');
+const submit = document.getElementById('submit-icon');
 
-showTasks();
+/* Add To List */
+newTask.addEventListener('keypress', (e) => {
+  (0,_modules_functionality_js__WEBPACK_IMPORTED_MODULE_1__.addToList)(e);
+});
 
+/* Add to List (clicked) */
+submit.addEventListener('click', () => {
+  (0,_modules_functionality_js__WEBPACK_IMPORTED_MODULE_1__.addToList)('clicked');
+});
+
+/* Delete Task */
+taskList.addEventListener('click', (event) => {
+  const clickedItem = event.target.classList[event.target.classList.length - 1];
+  const li = event.target.parentElement;
+  if (clickedItem === 'delete-task') {
+    (0,_modules_functionality_js__WEBPACK_IMPORTED_MODULE_1__.removeList)(li.id);
+    event.target.parentElement.remove();
+  }
+  if (clickedItem === 'checked') {
+    (0,_modules_checkFunctions_js__WEBPACK_IMPORTED_MODULE_2__.checkedBox)({ index: li.id, status: false });
+  }
+  if (clickedItem === 'unchecked') {
+    (0,_modules_checkFunctions_js__WEBPACK_IMPORTED_MODULE_2__.checkedBox)({ index: li.id, status: true });
+  }
+});
+
+/* Edit Task */
+taskList.addEventListener('keypress', (event) => {
+  const pressedItem = event.target.classList[event.target.classList.length - 1];
+  const li = event.target.parentElement;
+  if (pressedItem === 'task-edit') {
+    (0,_modules_functionality_js__WEBPACK_IMPORTED_MODULE_1__.editList)({ index: li.id, event });
+  }
+});
+
+/* Delete all done tasks */
+const clearBtn = document.getElementById('clear-btn');
+
+clearBtn.addEventListener('click', () => {
+  (0,_modules_checkFunctions_js__WEBPACK_IMPORTED_MODULE_2__.removeCompletedTodos)();
+});
+
+document.addEventListener('DOMContentLoaded', (0,_modules_functionality_js__WEBPACK_IMPORTED_MODULE_1__.deployList)());
 
 /***/ }),
 /* 1 */
@@ -354,7 +370,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "* {\n  padding: 0;\n  margin: 0;\n  box-sizing: border-box;\n}\n\nbody {\n  background-color: #f1f2f5;\n}\n\n/* Title */\n.title {\n  text-align: center;\n  margin-bottom: 5%;\n}\n\n/* ToDo List */\n.list-container {\n  display: flex;\n  flex-direction: column;\n  align-content: center;\n  justify-content: center;\n  width: 30%;\n  margin-left: 35%;\n  background-color: #fff;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);\n  border-radius: 3px;\n  padding: 1%;\n}\n\n/* ToDo List => Header */\n.list-header {\n  display: flex;\n  justify-content: space-between;\n  margin-bottom: 3%;\n  border-bottom: 1px #ddd solid;\n}\n\n/* ToDo List => Form */\n.list-form {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  width: 100%;\n  margin-bottom: 3%;\n  padding-bottom: 2%;\n  border-bottom: #ddd 1px solid;\n}\n\n.list-form input {\n  width: 90%;\n  height: 30px;\n  font-size: 0.8em;\n  padding-left: 2%;\n  outline: none;\n  border: none;\n}\n\n/* ToDo List => Content */\n.task-content {\n  display: flex;\n  justify-content: space-between;\n  border-bottom: 1px #ddd solid;\n  margin-bottom: 2.5%;\n  padding-bottom: 1%;\n}\n\n.task-text {\n  display: flex;\n  width: 60%;\n}\n\n.task-text p {\n  margin-left: 2%;\n}\n\n/* ToDo List => Clear Checked button */\n.btn-container {\n  display: flex;\n  justify-content: center;\n}\n\n.btn {\n  width: 50%;\n  height: 40px;\n  outline: none;\n  border: none;\n  background-color: #f1f2f5;\n  font-size: 1em;\n  cursor: pointer;\n}\n\n.btn:hover {\n  transition: 0.5s ease-in-out;\n  background-color: rgb(0, 255, 157);\n  color: white;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "* {\r\n  padding: 0;\r\n  margin: 0;\r\n  box-sizing: border-box;\r\n}\r\n\r\nbody {\r\n  background-color: #f1f2f5;\r\n}\r\n\r\n/* Title */\r\n.title {\r\n  text-align: center;\r\n  margin-bottom: 5%;\r\n}\r\n\r\n/* ToDo List */\r\n.list-container {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-content: center;\r\n  justify-content: center;\r\n  width: 30%;\r\n  margin-left: 35%;\r\n  background-color: #fff;\r\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);\r\n  border-radius: 3px;\r\n  padding: 1%;\r\n}\r\n\r\n/* ToDo List => Header */\r\n.list-header {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  margin-bottom: 3%;\r\n  border-bottom: 1px #ddd solid;\r\n}\r\n\r\n/* ToDo List => Form */\r\n.list-form {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  width: 100%;\r\n  margin-bottom: 3%;\r\n  padding-bottom: 2%;\r\n  border-bottom: #ddd 1px solid;\r\n}\r\n\r\n.list-form input {\r\n  width: 90%;\r\n  height: 30px;\r\n  font-size: 0.8em;\r\n  padding-left: 2%;\r\n  outline: none;\r\n  border: none;\r\n}\r\n\r\n/* ToDo List => Content */\r\n.task-content {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  border-bottom: 1px #ddd solid;\r\n  margin-bottom: 2.5%;\r\n  padding-bottom: 1%;\r\n}\r\n\r\n.task-text {\r\n  display: flex;\r\n  width: 60%;\r\n}\r\n\r\n.task-text p {\r\n  margin-left: 2%;\r\n}\r\n\r\n.task-edit {\r\n  outline: none;\r\n  border: none;\r\n  margin-left: 3%;\r\n  margin-top: 1%;\r\n  font-weight: 600;\r\n  font-size: 1em;\r\n}\r\n\r\n.completed {\r\n  text-decoration: line-through;\r\n}\r\n\r\n/* ToDo List => Clear Checked button */\r\n.btn-container {\r\n  display: flex;\r\n  justify-content: center;\r\n}\r\n\r\n.btn {\r\n  width: 50%;\r\n  height: 40px;\r\n  outline: none;\r\n  border: none;\r\n  background-color: #f1f2f5;\r\n  font-size: 1em;\r\n  cursor: pointer;\r\n}\r\n\r\n.btn:hover {\r\n  transition: 0.5s ease-in-out;\r\n  background-color: rgb(0, 255, 157);\r\n  color: white;\r\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -458,6 +474,122 @@ module.exports = function (cssWithMappingToString) {
   };
   return list;
 };
+
+/***/ }),
+/* 11 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "addToList": () => (/* binding */ addToList),
+/* harmony export */   "deployList": () => (/* binding */ deployList),
+/* harmony export */   "editList": () => (/* binding */ editList),
+/* harmony export */   "list": () => (/* binding */ list),
+/* harmony export */   "removeList": () => (/* binding */ removeList),
+/* harmony export */   "updateUI": () => (/* binding */ updateUI)
+/* harmony export */ });
+let list = JSON.parse(localStorage.getItem('list')) || []; // eslint-disable-line
+
+const taskList = document.getElementById('task-list');
+
+/* Deploy List */
+const deployList = () => {
+  taskList.innerHTML = '';
+  list = JSON.parse(localStorage.getItem('list'));
+  list.forEach((task) => {
+    const taskCard = document.createElement('div');
+    taskCard.classList = 'task-content';
+    taskCard.id = `${task.id}`;
+    taskCard.innerHTML = `<div class="task-text" id="${task.id}">
+                            ${task.completed === true ? `
+                            <input type="checkbox" checked id="checkbox" class="checked"></input>` : '<input type="checkbox" id="checkbox" class="unchecked"></input>'}
+                            <input class="${task.completed === true ? 'completed task-edit' : 'task-edit'}"
+                              type="text" value="${task.description}">
+                            </input>
+                          </div>
+                          <i class="fa-solid fa-trash-can delete-task" id="delete-task"></i>`;
+    taskList.appendChild(taskCard);
+  });
+};
+
+/* Add To List */
+const newTask = document.getElementById('task-input');
+const addToList = (e) => {
+  if (newTask.value === '') return;
+  if (e.key === 'Enter' || e === 'clicked') {
+    const taskItem = {
+      description: newTask.value,
+      completed: false,
+      id: list.length + 1,
+    };
+
+    newTask.value = '';
+    list = [...list, taskItem];
+    localStorage.setItem('list', JSON.stringify(list));
+    deployList();
+  }
+};
+
+/* Edit List Value */
+const editList = ({ index, event }) => {
+  if (event.target.value === '') return;
+  if (event.key === 'Enter') {
+    list[index - 1].description = event.target.value;
+    localStorage.setItem('list', JSON.stringify(list));
+  }
+};
+
+/* Remove List Value */
+const removeList = (targetI) => {
+  const listFiltered = list.filter((item) => +item.id !== +targetI);
+  const newList = listFiltered.map((item, id) => ({
+    description: item.description,
+    completed: item.completed,
+    id: id + 1,
+  }));
+  localStorage.setItem('list', JSON.stringify(newList));
+  list = newList;
+  deployList();
+};
+
+/* Update UI */
+const updateUI = (data) => {
+  list = data;
+  deployList();
+};
+
+/* Export functions */
+
+
+/***/ }),
+/* 12 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "checkedBox": () => (/* binding */ checkedBox),
+/* harmony export */   "removeCompletedTodos": () => (/* binding */ removeCompletedTodos)
+/* harmony export */ });
+/* harmony import */ var _functionality_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11);
+
+
+const checkedBox = ({ index, status }) => {
+  _functionality_js__WEBPACK_IMPORTED_MODULE_0__.list[index - 1].completed = status;
+  localStorage.setItem('list', JSON.stringify(_functionality_js__WEBPACK_IMPORTED_MODULE_0__.list));
+  (0,_functionality_js__WEBPACK_IMPORTED_MODULE_0__.deployList)();
+};
+
+const removeCompletedTodos = () => {
+  const uncompletedTodos = _functionality_js__WEBPACK_IMPORTED_MODULE_0__.list.filter((element) => element.completed !== true);
+  const newTodos = uncompletedTodos.map((element, index) => {
+    element.index = index + 1;
+    return element;
+  });
+  localStorage.setItem('list', JSON.stringify(newTodos));
+  (0,_functionality_js__WEBPACK_IMPORTED_MODULE_0__.updateUI)(newTodos);
+};
+
+
 
 /***/ })
 ],
