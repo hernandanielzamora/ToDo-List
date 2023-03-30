@@ -68,6 +68,7 @@ const updateUI = (data) => {
   deployList();
 };
 
+/* Export functions */
 export {
   deployList, addToList, editList, removeList, list, updateUI,
 };
