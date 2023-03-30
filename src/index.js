@@ -3,6 +3,9 @@ import './styles.css';
 import {
   deployList, addToList, editList, removeList,
 } from './modules/functionality.js';
+import {
+  checkedBox, removeCompletedTodos,
+} from './modules/checkFunctions.js';
 
 const taskList = document.getElementById('task-list');
 const newTask = document.getElementById('task-input');
@@ -26,6 +29,12 @@ taskList.addEventListener('click', (event) => {
     removeList(li.id);
     event.target.parentElement.remove();
   }
+  if (clickedItem === 'checked') {
+    checkedBox({ index: li.id, status: false });
+  }
+  if (clickedItem === 'unchecked') {
+    checkedBox({ index: li.id, status: true });
+  }
 });
 
 /* Edit Task */
@@ -35,6 +44,13 @@ taskList.addEventListener('keypress', (event) => {
   if (pressedItem === 'task-edit') {
     editList({ index: li.id, event });
   }
+});
+
+/* Delete all done tasks */
+const clearBtn = document.getElementById('clear-btn');
+
+clearBtn.addEventListener('click', () => {
+  removeCompletedTodos();
 });
 
 document.addEventListener('DOMContentLoaded', deployList());
