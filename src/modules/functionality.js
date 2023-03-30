@@ -1,17 +1,18 @@
-let list = JSON.parse(localStorage.getItem('list')) || [];
+let list = JSON.parse(localStorage.getItem('list')) || []; // eslint-disable-line
 
 const taskList = document.getElementById('task-list');
 
 /* Deploy List */
 const deployList = () => {
   taskList.innerHTML = '';
+  list = JSON.parse(localStorage.getItem('list'));
   list.forEach((task) => {
     const taskCard = document.createElement('div');
     taskCard.classList = 'task-content';
     taskCard.id = `${task.id}`;
     taskCard.innerHTML = `<div class="task-text" id="${task.id}">
                             ${task.completed === true ? `
-                            <input type="checkbox" checked></input>` : '<input type="checkbox"></input>'}
+                            <input type="checkbox" checked id="checkbox" class="checked"></input>` : '<input type="checkbox" id="checkbox" class="unchecked"></input>'}
                             <input class="${task.completed === true ? 'completed task-edit' : 'task-edit'}"
                               type="text" value="${task.description}">
                             </input>
@@ -61,6 +62,12 @@ const removeList = (targetI) => {
   deployList();
 };
 
+/* Update UI */
+const updateUI = (data) => {
+  list = data;
+  deployList();
+};
+
 export {
-  deployList, addToList, editList, removeList,
+  deployList, addToList, editList, removeList, list, updateUI,
 };
