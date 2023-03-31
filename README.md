@@ -111,7 +111,7 @@ In order to run this project you need:
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-- Not Deployed yet.
+- https://hernandanielzamora.github.io/ToDo-List/dist/
 
 <!-- Project Presntation -->
 
