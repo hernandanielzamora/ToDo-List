@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { addToList /* removeList */ } from '../src/modules/functionality.js';
+import { addToList, removeList } from '../src/modules/functionality.js';
 
 jest.mock('../__mock__/testlist');
 
@@ -24,5 +24,16 @@ describe('Testing add and remove functions', () => {
     /* Assert */
     expect(newListLength).toBe(list.length + 1);
     expect(newList[newListLength - 1].description).toBe('newTask');
+  });
+  test('Removing a task', () => {
+    /* Arrange */
+    const list = JSON.parse(localStorage.getItem('list'));
+
+    /* Act */
+    removeList(1);
+    const newList = JSON.parse(localStorage.getItem('list'));
+
+    /* Assert */
+    expect(newList.length).toBe(list.length - 1);
   });
 });
