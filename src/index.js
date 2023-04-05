@@ -1,11 +1,13 @@
 /* Imports */
 import './styles.css';
 import {
-  deployList, addToList, editList, removeList,
+  addToList, editList, removeList,
 } from './modules/functionality.js';
 import {
   checkedBox, removeCompletedTodos,
 } from './modules/checkFunctions.js';
+
+const { deployList } = require('./modules/deploy.js');
 
 const taskList = document.getElementById('task-list');
 const newTask = document.getElementById('task-input');

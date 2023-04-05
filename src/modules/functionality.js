@@ -1,5 +1,6 @@
 import { setStorage, ls } from './localstorage.js';
-import { deployList } from './deploy.js';
+/* import { deployList } from './deploy.js'; */
+const { deployList } = require('./deploy.js');
 
 /* Add To List */
 const addToList = (e) => {
@@ -44,13 +45,6 @@ const removeList = (targetI) => {
   list = newList;
   deployList();
 };
-
-/* Update UI */
-/* const updateUI = (data) => {
-  let list = localStorage();
-  list = data;
-  deployList();
-}; */
 
 /* Export functions */
 export {

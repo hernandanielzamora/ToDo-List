@@ -1,19 +1,24 @@
-import { list, deployList, updateUI } from './functionality.js';
+import { setStorage, ls } from './localstorage.js';
+
+const { deployList } = require('./deploy.js');
 
 const checkedBox = ({ index, status }) => {
+  const list = ls();
   list[index - 1].completed = status;
-  localStorage.setItem('list', JSON.stringify(list));
+  setStorage(list);
   deployList();
 };
 
 const removeCompletedTodos = () => {
+  const list = ls();
   const uncompletedTodos = list.filter((element) => element.completed !== true);
   const newTodos = uncompletedTodos.map((element, index) => {
     element.index = index + 1;
     return element;
   });
   localStorage.setItem('list', JSON.stringify(newTodos));
-  updateUI(newTodos);
+  setStorage(newTodos);
+  deployList();
 };
 
 export { checkedBox, removeCompletedTodos };

@@ -19,5 +19,4 @@ const deployList = () => {
   });
 };
 
-// eslint-disable-next-line import/prefer-default-export
-export { deployList };
+exports.deployList = deployList;
