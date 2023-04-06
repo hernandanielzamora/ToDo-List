@@ -24,11 +24,11 @@ const addToList = (e) => {
 
 /* Edit List Value */
 const editList = ({ index, event }) => {
-  const list = ls();
+  const list = JSON.parse(localStorage.getItem('list'));
   if (event.target.value === '') return;
   if (event.key === 'Enter') {
     list[index - 1].description = event.target.value;
-    localStorage.setItem('list', JSON.stringify(list));
+    setStorage(list);
   }
 };
 
@@ -48,5 +48,5 @@ const removeList = (targetI) => {
 
 /* Export functions */
 export {
-  addToList, editList, removeList/* , updateUI */,
+  addToList, removeList, editList,
 };
