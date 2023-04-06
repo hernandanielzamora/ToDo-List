@@ -1,30 +1,12 @@
-let list = JSON.parse(localStorage.getItem('list')) || []; // eslint-disable-line
-
-const taskList = document.getElementById('task-list');
-
-/* Deploy List */
-const deployList = () => {
-  taskList.innerHTML = '';
-  list = JSON.parse(localStorage.getItem('list'));
-  list.forEach((task) => {
-    const taskCard = document.createElement('div');
-    taskCard.classList = 'task-content';
-    taskCard.id = `${task.id}`;
-    taskCard.innerHTML = `<div class="task-text" id="${task.id}">
-                            ${task.completed === true ? `
-                            <input type="checkbox" checked id="checkbox" class="checked"></input>` : '<input type="checkbox" id="checkbox" class="unchecked"></input>'}
-                            <input class="${task.completed === true ? 'completed task-edit' : 'task-edit'}"
-                              type="text" value="${task.description}">
-                            </input>
-                          </div>
-                          <i class="fa-solid fa-trash-can delete-task" id="delete-task"></i>`;
-    taskList.appendChild(taskCard);
-  });
-};
+import { setStorage, ls } from './localstorage.js';
+/* import { deployList } from './deploy.js'; */
+const { deployList } = require('./deploy.js');
 
 /* Add To List */
-const newTask = document.getElementById('task-input');
 const addToList = (e) => {
+  const list = ls();
+  const taskGroup = document.querySelector('.list-form');
+  const newTask = taskGroup.querySelector('input');
   if (newTask.value === '') return;
   if (e.key === 'Enter' || e === 'clicked') {
     const taskItem = {
@@ -34,14 +16,15 @@ const addToList = (e) => {
     };
 
     newTask.value = '';
-    list = [...list, taskItem];
-    localStorage.setItem('list', JSON.stringify(list));
+    list.push(taskItem);
+    setStorage(list);
     deployList();
   }
 };
 
 /* Edit List Value */
 const editList = ({ index, event }) => {
+  const list = ls();
   if (event.target.value === '') return;
   if (event.key === 'Enter') {
     list[index - 1].description = event.target.value;
@@ -51,6 +34,7 @@ const editList = ({ index, event }) => {
 
 /* Remove List Value */
 const removeList = (targetI) => {
+  let list = ls();
   const listFiltered = list.filter((item) => +item.id !== +targetI);
   const newList = listFiltered.map((item, id) => ({
     description: item.description,
@@ -62,13 +46,7 @@ const removeList = (targetI) => {
   deployList();
 };
 
-/* Update UI */
-const updateUI = (data) => {
-  list = data;
-  deployList();
-};
-
 /* Export functions */
 export {
-  deployList, addToList, editList, removeList, list, updateUI,
+  addToList, editList, removeList/* , updateUI */,
 };
