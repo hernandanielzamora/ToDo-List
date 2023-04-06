@@ -3,7 +3,7 @@
  */
 
 import { editList } from '../src/modules/functionality.js';
-// import { checkedBox, removeCompletedTodos } from '../src/modules/checkFunctions.js';
+import { checkedBox, removeCompletedTodos } from '../src/modules/checkFunctions.js';
 
 jest.mock('../__mock__/testlist');
 
@@ -47,5 +47,31 @@ describe('Edit Task Description', () => {
 
     /* Assert */
     expect(editedList[inputTask.index - 1].description).toBe('updated item');
+  });
+});
+
+describe('Completed Task description', () => {
+  test('Status Update', () => {
+    /* Arrange */
+    const setUp = {
+      index: 3,
+      status: true,
+    };
+
+    /* Act */
+    checkedBox(setUp);
+    const newLS = JSON.parse(localStorage.getItem('list'));
+
+    /* Assert */
+    expect(newLS[setUp.index - 1].completed).toBeTruthy();
+  });
+
+  test('Remove Completed', () => {
+    /* Act */
+    removeCompletedTodos();
+    const newLS = JSON.parse(localStorage.getItem('list'));
+
+    /* Assert */
+    expect(newLS.length).toBeLessThan(editStorage.length);
   });
 });
