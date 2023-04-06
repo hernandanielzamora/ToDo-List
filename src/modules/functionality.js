@@ -1,5 +1,5 @@
 import { setStorage, ls } from './localstorage.js';
-/* import { deployList } from './deploy.js'; */
+
 const { deployList } = require('./deploy.js');
 
 /* Add To List */
